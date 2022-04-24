@@ -3,7 +3,17 @@ const mongoose = require('mongoose')
 const articleRouter = require('./routes/articles')
 const app = express()
 
-const url = "mongodb://localhost:27017/blog"
+const mongoUrl = "mongodb://localhost/Blog";
+
+const connectToMongo = async () => {
+    try {
+      await mongoose.connect(mongoUrl, { useNewUrlParser: true });
+      console.log('connected to MongoDB');
+    } catch(error) {
+      console.log('error connection to MongoDB:', error.message);
+    }
+  };
+
 app.set('view engine', 'ejs')
 
 app.use('/articles', articleRouter)
